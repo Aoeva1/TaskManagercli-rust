@@ -36,7 +36,17 @@ struct TaskManage {
             priority,
         }
     }
-}
+
+        fn check_complete(&mut self) {
+            self.complete = true;
+            println!("Task: {}, Complete: {:?}", self.name.green().bold(), self.complete);
+            }
+
+        fn delete(&mut self) {
+
+        }
+        }
+
 
 
 
@@ -66,11 +76,13 @@ fn main() {
  (__)(__)(__)(___/(_)\_)  (_/\/\_)(__)(__)(_)\_)(__)(__)\___/(____)(_)\_)   \___)(____)(____)
     "#;
         println!("{}", banner.red().bold());
-
+//Mark a task as complete /
         println!("{}", "1. Create a new task".green().bold());
-        println!("{}", "2. Mark a task as complete".bright_blue().bold());
-        println!("{}", "3. Delete a task".bright_magenta().bold());
-        println!("{}", "4. Save and quit".bright_yellow().bold());
+        println!("{}", "2. check what tasks you have".bright_blue().bold());
+        println!("{}", "3. Mark task as complete".bright_purple().bold());
+
+        println!("{}", "4. Delete a task".bright_black().bold());
+        println!("{}", "5. Save and quit".bright_yellow().bold());
 
         let mut input = String::new();
         io::stdin().read_line(&mut input).expect("Can't read line");
@@ -104,15 +116,53 @@ fn main() {
 
             },
             "2" => {
+                for task in tasks.iter() {
+                    task.check();
+
+                }
 
             },
             "3" => {
+                println!("{}", "Enter the name of the task to mark as complete:".cyan());
+                let mut task_name = String::new();
+                io::stdin()
+                    .read_line(&mut task_name)
+                    .expect("Failed to read task name");
+                let task_name = task_name.trim();
+
+                if let Some(task) = tasks.iter_mut().find(|t| t.name == task_name) {
+                    task.check_complete();
+                } else {
+                    println!("{}", "Task not found!".red());
+                }
+            }
+
+
+
+
+            "4" => {
+                println!("{}", "Enter the name of the task to delete:".cyan());
+                let mut task_name = String::new();
+                io::stdin()
+                    .read_line(&mut task_name)
+                    .expect("Failed to read task name");
+                let task_name = task_name.trim();
+
+                let before_count = tasks.len();
+                tasks.retain(|task| task.name != task_name);
+
+                if tasks.len() < before_count {
+                    println!("{}", "Task deleted successfully!".green());
+                } else {
+                    println!("{}", "Task not found!".red());
+                }
 
             },
-            "4" => {
+            "5" => {
                 save_tasks(&tasks, &file_path);
                 exit(0)
             }
+
             _ => {}
         }
     }

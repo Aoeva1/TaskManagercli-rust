@@ -1,16 +1,16 @@
 [
   {
     "name": "mopping",
-    "complete": false,
+    "complete": true,
     "priority": [
       1
     ]
   },
   {
-    "name": "drawing",
+    "name": "teach-sean-rust",
     "complete": false,
     "priority": [
-      2
+      4
     ]
   }
 ]
