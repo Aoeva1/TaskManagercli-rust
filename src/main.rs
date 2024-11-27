@@ -95,7 +95,7 @@ fn main() {
                     .expect("Failed to read task name");
                 let task_name = task_name.trim().to_string();
 
-                println!("{}", "Enter task priority (comma-separated numbers):".cyan());
+                println!("{}", "Enter task priority :".cyan());
                 let mut priority_input = String::new();
                 io::stdin()
                     .read_line(&mut priority_input)
