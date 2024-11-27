@@ -15,10 +15,18 @@ Clone the repository:
 '''bash
 
 git clone https://github.com/Aoeva1/TaskManagercli-rust
-cd Rust-task-manager-cli/src
-cargo run
+cd Rust-task-manager-cli
+cd src
+
+
+
 How to Use
 Run the CLI: Follow the prompts to manage your tasks efficiently.
+
+
+
+cargo run
+
 
 Choose from the Options:
 
