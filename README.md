@@ -35,22 +35,9 @@ Choose from the Options:
 3: Mark a task as complete.
 4: Delete a task.
 5: Save tasks to a JSON file and exit.
-Example Screenshot:
-(Replace with your screenshot URL or embed an actual screenshot if hosted elsewhere.)
 
 
-Build Instructions
-To build the project as an executable:
 
-bash
-Copy code
-cargo build --release
-The compiled executable will be available in the target/release/ directory.
 
-Contributing
-Contributions are welcome! Feel free to submit a pull request or report issues.
-
-License
-This project is open-source and available under the MIT License.
 
 ![Screenshot from 2024-11-27 12-59-33](https://github.com/user-attachments/assets/fabcbb37-e73b-41db-8ab1-2a63f0a8170c)
