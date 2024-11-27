@@ -1,72 +1,176 @@
-use std::io;
-use colored::*;  // for colored output
-use chrono::*;
-// Define the task management struct
+use colored::*; // for colored output
+use serde::{Deserialize, Serialize};
+use std::{fs, io};
+
+use std::io::{Read, Write};
+use serde_json::{Value, json};
+
+
+use std::fs::{OpenOptions, File};
+use std::process::exit;
+
+#[derive(Serialize, Deserialize, Debug)]
 struct TaskManage {
     name: String,
     complete: bool,
-    priority: u128,
-
+    priority: Vec<i32>,
 }
 
-impl TaskManage {
-    // Method to check the task details
+
+    impl TaskManage {
+    // Check the task details
     fn check(&self) {
         println!(
-            "Task: {}, Priority: {}, Completed: {}",
+            "Task: {}, Priority: {:?}, Completed: {}",
             self.name.green().bold(),
-            self.priority.to_string().red(),
+            self.priority,
             self.complete.to_string().bright_blue()
         );
     }
 
-    // Constructor to create a new task
-    fn new(name: String, priority: u128) -> Self {
+    // Create a new task
+    fn new(name: String, priority: Vec<i32>) -> Self {
         TaskManage {
             name,
-            complete: false, // Default to incomplete
+            complete: false,
             priority,
         }
     }
 }
 
+
+
+fn load_tasks(file_path: &str) -> Vec<TaskManage> {
+    let content = fs::read_to_string(file_path).unwrap_or_else(|_| "[]".to_string());
+    serde_json::from_str(&content).unwrap_or_else(|_| Vec::new())
+}
+// Save tasks to a file
+fn save_tasks(task: &Vec<TaskManage>, file_path: &str) {
+    let data = serde_json::to_string_pretty(task).expect("Failed to serialize task");
+    fs::write(file_path, data).expect("Failed to write to file");
+    println!("{}", "Tasks saved successfully!".green());
+}
+
+
 fn main() {
-    // Create a mutable String to store the user input
+    let file_path = "tasks.json";
+
+    let mut tasks = load_tasks(file_path);   // Load existing finances or create new
 
 
+    loop {
+        let banner = r#"
 
-
-
-
-
-    let banner = r#"
 (_  _) /__\  / __)( )/ )  (  \/  )  /__\  ( \( )  /__\  / __)( ___)(  _ \   / __)(  )  (_  _)
   )(  /(__)\ \__ \ )  (    )    (  /(__)\  )  (  /(__)\( (_-. )__)  )   /  ( (__  )(__  _)(_
  (__)(__)(__)(___/(_)\_)  (_/\/\_)(__)(__)(_)\_)(__)(__)\___/(____)(_)\_)   \___)(____)(____)
-
     "#;
-    println!(", {}",  banner.red().bold());
+        println!("{}", banner.red().bold());
 
-let one  =  ("1. make new task \n");
-let two = ("2. mark task as complete task \n");
-let three = ("3. delete task  \n");
-let four = ("4. save and quit \n");
-    println!(", {}",  one.green().bold());
-    println!(", {}", two.bright_blue().bold());
-    println!(", {}", three.bright_magenta().bold());
-    println!(", {}", four.bright_yellow().bold());
+        println!("{}", "1. Create a new task".green().bold());
+        println!("{}", "2. Mark a task as complete".bright_blue().bold());
+        println!("{}", "3. Delete a task".bright_magenta().bold());
+        println!("{}", "4. Save and quit".bright_yellow().bold());
 
-    let mut y = 10;
-
-    // Prompt the user for input
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).expect("Can't read line");
+        let input = input.trim();
 
 
-    // Read input from stdin and handle potential errors
-    io::stdin().read_line(&mut y.to_string()).expect("Failed to read line");
+        match input {
+            "1" => {
+                println!("{}", "Enter task name:".cyan());
+                let mut task_name = String::new();
+                io::stdin()
+                    .read_line(&mut task_name)
+                    .expect("Failed to read task name");
+                let task_name = task_name.trim().to_string();
 
-    // Trim the newline character at the end and print the input
+                println!("{}", "Enter task priority (comma-separated numbers):".cyan());
+                let mut priority_input = String::new();
+                io::stdin()
+                    .read_line(&mut priority_input)
+                    .expect("Failed to read priority");
+                let priority: Vec<i32> = priority_input
+                    .trim()
+                    .split(',')
+                    .filter_map(|p| p.trim().parse::<i32>().ok())
+                    .collect();
 
+                let new_task = TaskManage::new(task_name.clone(), priority);
 
-    // Prompt the user for input
+                println!("{} was added to the task list", new_task.name.green().bold());
+                tasks.push(new_task);
 
+            },
+            "2" => {
+
+            },
+            "3" => {
+
+            },
+            "4" => {
+                save_tasks(&tasks, &file_path);
+                exit(0)
+            }
+            _ => {}
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
