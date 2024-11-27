@@ -2,11 +2,10 @@ use colored::*; // for colored output
 use serde::{Deserialize, Serialize};
 use std::{fs, io};
 
-use std::io::{Read, Write};
-use serde_json::{Value, json};
 
 
-use std::fs::{OpenOptions, File};
+
+
 use std::process::exit;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -42,9 +41,7 @@ struct TaskManage {
             println!("Task: {}, Complete: {:?}", self.name.green().bold(), self.complete);
             }
 
-        fn delete(&mut self) {
 
-        }
         }
 
 

@@ -12,5 +12,12 @@
     "priority": [
       4
     ]
+  },
+  {
+    "name": "build wall",
+    "complete": false,
+    "priority": [
+      1
+    ]
   }
 ]
