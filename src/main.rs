@@ -9,14 +9,14 @@ use std::{fs, io};
 use std::process::exit;
 
 #[derive(Serialize, Deserialize, Debug)]
-struct TaskManage {
+struct Task {
     name: String,
     complete: bool,
     priority: Vec<i32>,
 }
 
 
-    impl TaskManage {
+    impl Task {
     // Check the task details
     fn check(&self) {
         println!(
@@ -29,7 +29,7 @@ struct TaskManage {
 
     // Create a new task
     fn new(name: String, priority: Vec<i32>) -> Self {
-        TaskManage {
+        Task {
             name,
             complete: false,
             priority,
@@ -52,7 +52,7 @@ fn load_tasks(file_path: &str) -> Vec<TaskManage> {
     serde_json::from_str(&content).unwrap_or_else(|_| Vec::new())
 }
 // Save tasks to a file
-fn save_tasks(task: &Vec<TaskManage>, file_path: &str) {
+fn save_tasks(task: &Vec<Task>, file_path: &str) {
     let data = serde_json::to_string_pretty(task).expect("Failed to serialize task");
     fs::write(file_path, data).expect("Failed to write to file");
     println!("{}", "Tasks saved successfully!".green());
@@ -106,7 +106,7 @@ fn main() {
                     .filter_map(|p| p.trim().parse::<i32>().ok())
                     .collect();
 
-                let new_task = TaskManage::new(task_name.clone(), priority);
+                let new_task = Task::new(task_name.clone(), priority);
 
                 println!("{} was added to the task list", new_task.name.green().bold());
                 tasks.push(new_task);
