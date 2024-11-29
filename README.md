@@ -12,13 +12,13 @@ Save Progress: Save tasks to a JSON file for persistence.
 Installation and Usage
 Clone the repository:
 
-'''bash
-
-git clone https://github.com/Aoeva1/TaskManagercli-rust
-cd Rust-task-manager-cli
-cd src
 
 
+                              git clone https://github.com/Aoeva1/TaskManagercli-rust
+               cd Rust-task-manager-cli
+               cd src
+
+                      cargo run
 
 How to Use
 Run the CLI: Follow the prompts to manage your tasks efficiently.
