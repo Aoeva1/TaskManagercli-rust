@@ -62,7 +62,7 @@ fn save_tasks(task: &Vec<TaskManage>, file_path: &str) {
 fn main() {
     let file_path = "tasks.json";
 
-    let mut tasks = load_tasks(file_path);   // Load existing finances or create new
+    let mut tasks = load_tasks(file_path);   // Load existing tasks or create new
 
 
     loop {
