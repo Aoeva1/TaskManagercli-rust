@@ -15,7 +15,7 @@ Clone the repository:
 
 
                               git clone https://github.com/Aoeva1/TaskManagercli-rust
-                                           cd Rust-task-manager-cli
+                                           cd TaskManagercli-rust
                                                     cd src
 cargo run
 
