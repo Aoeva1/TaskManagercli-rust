@@ -47,7 +47,7 @@ struct Task {
 
 
 
-fn load_tasks(file_path: &str) -> Vec<TaskManage> {
+fn load_tasks(file_path: &str) -> Vec<Task> {
     let content = fs::read_to_string(file_path).unwrap_or_else(|_| "[]".to_string());
     serde_json::from_str(&content).unwrap_or_else(|_| Vec::new())
 }
